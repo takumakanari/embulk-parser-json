@@ -4,11 +4,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "embulk-parser-json"
-  spec.version       = "0.0.2"
+  spec.version       = "0.0.3"
   spec.authors       = ["Takuma kanari"]
   spec.email         = ["chemtrails.t@gmail.com"]
-  spec.summary       = %q{Embulk parser plugin for json}
-  spec.description   = %q{Json parser plugin is Embulk plugin to fetch entries in json format.}
+  spec.summary       = %q{Embulk parser plugin for json with jsonpath}
+  spec.description   = %q{Json parser plugin is Embulk plugin to fetch entries in json format with jsonpath.}
   spec.homepage      = "https://github.com/takumakanari/embulk-parser-json"
   spec.license       = "MIT"
 

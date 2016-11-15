@@ -4,18 +4,23 @@ Parser plugin for [Embulk](https://github.com/embulk/embulk).
 
 Read data from input as json and fetch each entries by [jsonpath](http://goessner.net/articles/JsonPath/) to output.
 
+
+
 ## Overview
 
 * **Plugin type**: parser
 * **Load all or nothing**: yes
 * **Resume supported**: no
 
-
 ## Configuration
+
+### Breaking changes
+
+A type name has been changed from **json** to **jsonpath** from v0.0.3.
 
 ```yaml
 parser:
-  type: json
+  type: jsonpath
   root: $.response.station
   schema:
     - {name: name, type: string}
@@ -58,7 +63,7 @@ schema:
   - {name: age, type: long}
 ```
 
-### Handle more complicated json 
+### Handle more complicated json
 
 
 If you want to handle more complicated json like as follows:
@@ -83,4 +88,3 @@ schema:
 ```
 
 In this case, names[0] will be firstName of schema and names[1] will be lastName.
-
