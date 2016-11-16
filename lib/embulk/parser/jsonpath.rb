@@ -3,8 +3,8 @@ require "jsonpath"
 module Embulk
   module Parser
 
-    class JsonParserPlugin < ParserPlugin
-      Plugin.register_parser("json", self)
+    class JsonpathParserPlugin < ParserPlugin
+      Plugin.register_parser("jsonpath", self)
 
       def self.transaction(config, &control)
         task = {
