@@ -12,11 +12,11 @@ Read data from input as json and fetch each entries by [jsonpath](http://goessne
 * **Load all or nothing**: yes
 * **Resume supported**: no
 
-## Configuration
-
 ### Breaking changes
 
 A type name has been changed from **json** to **jsonpath** from v0.0.3.
+
+## Configuration
 
 ```yaml
 parser:
@@ -31,6 +31,7 @@ parser:
     - {name: lng, type: double, path: y}
     - {name: line, type: string}
     - {name: postal, type: string}
+    - {name: optionals, type: json}
 ```
 
 - **type**: specify this plugin as `json`
@@ -66,7 +67,7 @@ schema:
 ### Handle more complicated json
 
 
-If you want to handle more complicated json like as follows:
+If you want to handle more complicated json, you can specify jsonpath to also **path** in schema section like as follows:
 
 ```json
 {
@@ -77,8 +78,6 @@ If you want to handle more complicated json like as follows:
     ]
 }
 ```
-
-you can specify jsonpath to also **path** in schema section:
 
 ```yaml
 root: $.students

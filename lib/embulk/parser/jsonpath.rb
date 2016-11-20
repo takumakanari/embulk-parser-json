@@ -1,3 +1,4 @@
+require "json"
 require "jsonpath"
 
 module Embulk
@@ -18,10 +19,10 @@ module Embulk
       end
 
       def run(file_input)
-        rootPath = JsonPath.new(@task["root"])
+        root = JsonPath.new(@task["root"])
         schema = @task["schema"]
         while file = file_input.next_file
-          rootPath.on(file.read).flatten.each do |e|
+          root.on(JSON.parse(file.read)).flatten.each do |e|
             @page_builder.add(make_record(schema, e))
           end
         end
@@ -29,44 +30,39 @@ module Embulk
       end
 
       private
-
       def make_record(schema, e)
         schema.map do |c|
           name = c["name"]
           path = c["path"]
-          val = path.nil? ? e[name] : find_by_path(e, path)
 
-          v = val.nil? ? "" : val
+          val = path.nil? ? e[name] : JsonPath.on(e, path).first
           type = c["type"]
           case type
             when "string"
-              v
+              val
             when "long"
-              v.to_i
+              val.to_i
             when "double"
-              v.to_f
+              val.to_f
+            when "json"
+              val
             when "boolean"
-              if v.nil?
+              if val.nil? || val.empty?
                 nil
-              elsif v.kind_of?(String)
-                ["yes", "true", "1"].include?(v.downcase)
-              elsif v.kind_of?(Numeric)
-                !v.zero?
+              elsif val.kind_of?(String)
+                ["yes", "true", "1"].include?(val.downcase)
+              elsif val.kind_of?(Numeric)
+                !val.zero?
               else
-                !!v
+                !!val
               end
             when "timestamp"
-              v.empty? ? nil : Time.strptime(v, c["format"])
+              val.nil? || val.empty? ? nil : Time.strptime(val, c["format"])
             else
               raise "Unsupported type #{type}"
           end
         end
       end
-
-      def find_by_path(e, path)
-        JsonPath.on(e, path).first
-      end
     end
-
   end
 end
