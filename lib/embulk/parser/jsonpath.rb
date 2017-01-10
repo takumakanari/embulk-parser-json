@@ -47,7 +47,9 @@ module Embulk
             when "json"
               val
             when "boolean"
-              if val.nil? || val.empty?
+              if kind_of_boolean?(val)
+                val
+              elsif val.nil? || val.empty?
                 nil
               elsif val.kind_of?(String)
                 ["yes", "true", "1"].include?(val.downcase)
@@ -62,6 +64,10 @@ module Embulk
               raise "Unsupported type #{type}"
           end
         end
+      end
+
+      def kind_of_boolean?(val)
+        val.kind_of?(TrueClass) || val.kind_of?(FalseClass)
       end
     end
   end
