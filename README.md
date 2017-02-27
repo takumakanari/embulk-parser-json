@@ -22,6 +22,7 @@ A type name has been changed from **json** to **jsonpath** from v0.0.3.
 parser:
   type: jsonpath
   root: $.response.station
+  stop_on_invalid_record: false
   schema:
     - {name: name, type: string}
     - {name: next, type: string}
@@ -34,9 +35,10 @@ parser:
     - {name: optionals, type: json}
 ```
 
-- **type**: specify this plugin as `json`
-- **root**: root property to start fetching each entries, specify in [jsonpath](http://goessner.net/articles/JsonPath/) style, required
-- **schema**: specify the attribute of table and data type, required
+- **type**: Specify this plugin as `json`
+- **root**: Root property to start fetching each entries, specify in [jsonpath](http://goessner.net/articles/JsonPath/) style, required
+- **schema**: Specify the attribute of table and data type, required
+- **stop_on_invalid_record**: Stop bulk load transaction if a file includes invalid record, false by default
 
 
 ## Example
