@@ -8,6 +8,8 @@ module Embulk
       Plugin.register_parser("jsonpath", self)
 
       def self.transaction(config, &control)
+        Embulk.logger.warn "'embulk-parser-json' has been deprecated."
+        Embulk.logger.warn "Just use 'embulk-parser-jsonpath' (https://rubygems.org/gems/embulk-parser-jsonpath) instead."
         task = {
           schema: config.param("schema", :array),
           root: config.param("root", :string),

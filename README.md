@@ -1,3 +1,10 @@
+## Deprecated
+
+'embulk-parser-json' has been deprecated.
+
+Just use [embulk-parser-jsonpath](https://rubygems.org/gems/embulk-parser-jsonpath) instead.
+
+
 # Json parser plugin for Embulk
 
 Parser plugin for [Embulk](https://github.com/embulk/embulk).
